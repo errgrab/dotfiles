@@ -1,7 +1,7 @@
 syntax on
 filetype on
 
-"colo retrobox
+colo base16-gruvbox-dark-hard
 "hi Normal guibg=#000000 ctermbg=16
 
 " Settings
@@ -11,9 +11,10 @@ se nu rnu sc		" numbers
 se si ai			" indentation
 se hls is			" search
 se mouse=a			" mouse
+se termguicolors	" term colors
 
 " display
-set list lcs=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·
+se list lcs=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·
 
 " Keybindings
 let g:mapleader="\<space>"
