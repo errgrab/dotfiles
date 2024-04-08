@@ -1,28 +1,19 @@
--- Settings
-vim.opt.compatible = false
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.expandtab = false
-vim.opt.number = true
-vim.opt.relativenumber = true
-vim.opt.smartindent = true
-vim.opt.autoindent = true
-vim.opt.hlsearch = true
-vim.opt.incsearch = true
-vim.opt.mouse = "a"
+-- BASIC
+vim.cmd [[
+colo base16-gruvbox-dark-hard
+se nocp ts=4 sw=4 noet nu rnu sc si ai hls is mouse=a tgc cc=80
+se list lcs=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·
+]]
 
 -- 42
 vim.g.user42 = 'ecarvalh'
 vim.g.mail42 = 'ecarvalh@student.42porto.com'
 
-vim.opt.list = true
-vim.opt.listchars = 'tab:» ,extends:›,precedes:‹,nbsp:·,trail:·'
-
+-- Keybinds
 vim.g.mapleader = ' '
-vim.api.nvim_set_keymap('n', '<leader>w', '<C-w>', {})
-vim.api.nvim_set_keymap('n', '<leader>t', ':term<CR>', {})
-
-vim.cmd([[
+vim.cmd [[
 au TermOpen * setlocal nonu nornu
-]])
-vim.api.nvim_set_keymap('t', '<Esc>', '<C-\\><C-n>', {})
+tno <Esc> <C-\><C-n>
+nn <leader>w <C-w>
+nn <leader>t :term<CR>
+]]
