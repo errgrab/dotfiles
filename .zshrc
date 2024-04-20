@@ -3,6 +3,7 @@ export PROMPT="%(?.%F{green}.%F{red}[%?] )%1~%f "
 
 # Path for my own applications
 export PATH="$HOME/.local/bin/:$PATH"
+export GPG_TTY=$(tty)
 
 # Aliases
 alias ls="ls --color=auto"
@@ -23,6 +24,7 @@ setopt hist_ignore_dups
 setopt hist_ignore_space
 setopt hist_verify
 setopt share_history
+
 
 # /etc/zsh/zshrc: system-wide .zshrc file for zsh(1).
 #

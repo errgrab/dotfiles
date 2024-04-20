@@ -14,6 +14,7 @@ export PS1="\[\e[0;32m\]\$(print_error)\W \[\e[0m\]"
 
 # Path
 export PATH="$HOME/.local/bin/:$PATH"
+export GPG_TTY=$(tty)
 
 # Aliases
 alias ls='ls --color=auto'
