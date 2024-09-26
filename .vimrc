@@ -6,6 +6,8 @@ colo base16-gruvbox-dark-hard
 se nocp ts=4 sw=4 noet nu rnu sc si ai hls is mouse=a cc=80 tgc
 se list lcs=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·
 let g:mapleader="\<space>"
+let g:user42="ecarvalh"
+let g:mail42="ecarvalh@student.42porto.com"
 nn <leader>w <C-w>
 nn <leader>t :term<CR>
 au TerminalOpen * setlocal nonu nornu
