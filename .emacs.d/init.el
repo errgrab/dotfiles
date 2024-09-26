@@ -1,14 +1,32 @@
 ;; Setup packages
 (require 'package)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/"))
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+(add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/"))
+(setq package-enable-at-startup nil)
 (package-initialize)
 
 ;; Disable ugly things
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
-(tooltip-mode -1)
-(setq inhibit-startup-screen t)
+(menu-bar-mode 0)
+(tool-bar-mode 0)
+(scroll-bar-mode 0)
+(tooltip-mode 0)
+(blink-cursor-mode 0)
+(setq inhibit-startup-screen t
+      initial-scratch-message ""
+      visible-bell t
+      make-backup-files nil
+      auto-save-default nil
+      scroll-margin 0
+      scroll-concervatively 101
+      scroll-preserve-screen-position t
+      auto-window-vscroll nil)
+
+(when (member "Iosevka" (font-family-list))
+  (set-face-attribute 'default nil :family "Iosevka"))
+(set-face-attribute 'default nil
+		    :height 140
+		    :weight 'normal)
 
 ;; Tabs configuration
 (setq-default tab-width 4
@@ -20,9 +38,8 @@
 
 ;; Show invisible characters
 (global-whitespace-mode t)
-(setq whitespace-style '(face tabs trailing lines
-	space-before-tab indentation empty space-after-tab
-	tab-mark))
+(setq whitespace-style '(face tabs trailing lines space-before-tab indentation
+						 empty space-after-tab tab-mark))
 
 ;; Disable backup files
 (setq make-backup-files nil)
@@ -60,6 +77,4 @@
 
 (use-package evil
   :config
-  (evil-mode 1)
-  (evil-define-key 'insert global-map (kbd "<tab>")
-	(lambda () (interactive) (insert "\t"))))
+  (evil-mode 1))
