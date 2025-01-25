@@ -6,12 +6,9 @@ export PATH="$HOME/.local/bin/:$PATH"
 export GPG_TTY=$(tty)
 
 # Aliases
-alias ls="ls --color=auto"
-alias la="ls -la --color=auto"
+#alias ls="ls --color=auto"
 alias diff="diff --color=auto"
 alias grep="grep --color=auto"
-
-alias vi="vim"
 
 # Good history
 export HISTSIZE=65536
