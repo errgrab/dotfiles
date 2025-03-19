@@ -1,80 +1,112 @@
-;; Setup packages
-(require 'package)
-(add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/"))
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-(add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/"))
-(setq package-enable-at-startup nil)
-(package-initialize)
-
-;; Disable ugly things
+;; Basic
 (menu-bar-mode 0)
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
 (tooltip-mode 0)
 (blink-cursor-mode 0)
-(setq inhibit-startup-screen t
-      initial-scratch-message ""
-      visible-bell t
-      make-backup-files nil
-      auto-save-default nil
-      scroll-margin 0
-      scroll-concervatively 101
-      scroll-preserve-screen-position t
-      auto-window-vscroll nil)
+(toggle-frame-maximized)
 
-(when (member "Iosevka" (font-family-list))
-  (set-face-attribute 'default nil :family "Iosevka"))
-(set-face-attribute 'default nil
-		    :height 140
-		    :weight 'normal)
+;; Variables
+(setq
+ backup-directory-alist '(("." . "~/.emacs.d/backups"))
+ auto-save-file-name-transforms '((".*" "~/.emacs.d/backups/" t))
+ inhibit-startup-message t
+ initial-scratch-message nil)
 
-;; Tabs configuration
-(setq-default tab-width 4
-			  c-default-style "bsd"
-			  c-basic-offset 4
-			  indent-tabs-mode t)
-
-(setq c-basic-offset 4)
-
-;; Show invisible characters
-(global-whitespace-mode t)
-(setq whitespace-style '(face tabs trailing lines space-before-tab indentation
-						 empty space-after-tab tab-mark))
-
-;; Disable backup files
-(setq make-backup-files nil)
-(setq auto-save-default nil)
-
-;; Install use-package framework for packages
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-(setq use-package-always-ensure t
-	  use-package-expand-minimally t)
-
-;; Theme
-(use-package gruvbox-theme
-  :config
-  (load-theme 'gruvbox-dark-hard t))
-
-;; Magit
-(use-package magit
-  :bind (("C-x g" . magit-status)
-		 ("C-x C-g" . magit-status)))
+(setq-default
+ indent-tabs-mode t
+ tab-width 4
+ c-basic-offset 4)
 
 ;; Line numbers
-(use-package display-line-numbers
-  :hook (prog-mode . display-line-numbers-mode))
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
 
-(use-package smex
-  :bind (("M-x" . smex)
-		 ("C-c C-c M-x" . execute-extended-command)))
+;; Easily open config
+(global-set-key (kbd "C-c i") (lambda () (interactive) (find-file "~/.emacs.d/init.el")))
 
-(use-package ido
+;; Font
+(when (member "IosevkaTerm" (font-family-list))
+  (set-face-attribute 'default nil :font "IosevkaTerm"))
+(set-face-attribute 'default nil :height 120 :weight 'normal)
+
+;; Use melpa repository
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(setq package-enable-at-startup nil)
+(package-initialize)
+
+;; Initialize use-package
+(require 'use-package)
+(setq use-package-always-ensure t)
+
+(use-package doom-themes
+  :init (load-theme 'doom-tokyo-night t))
+
+(use-package doom-modeline
+  :hook (after-init . doom-modeline-mode))
+
+(use-package magit
+  :bind ("C-x g" . magit-status))
+
+(use-package company
+  :hook (lsp-mode . company-mode)
+  :config (global-company-mode t))
+
+(use-package ivy
+  :bind (("C-s" . swiper)
+		 ("M-x" . counsel-M-x))
   :config
-  (ido-mode 1)
-  (ido-everywhere 1))
+  (ivy-mode t)
+  (setq ivy-use-virtual-buffers t)
+  (setq ivy-count-format "(%d/%d) "))
 
-(use-package evil
+(use-package counsel
   :config
-  (evil-mode 1))
+  (counsel-mode t)
+  (setq counsel-M-x-history nil))
+
+(use-package swiper
+  :bind (("C-s" . swiper-isearch)
+		 ("C-r" . swiper-isearch-C-r)))
+
+(use-package which-key
+  :config (which-key-mode t))
+
+(use-package multiple-cursors
+  :bind (("C->" . mc/mark-next-like-this)
+		 ("C-<" . mc/mark-previous-like-this)
+		 ("C-c C-<" . mc/mark-all-like-this)))
+
+(use-package markdown-mode
+  :mode "\\.md\\'")
+
+(use-package grip-mode
+  :config (setq grip-command 'go-grip)
+  :hook ((markdown-mode org-mode) . grip-mode))
+
+(use-package lsp-mode
+  :hook ((c-mode . lsp)
+		 (c-or-c++-mode . lsp)
+		 (lsp-mode . lsp-enable-which-key-integration))
+  :commands lsp
+  :config
+  (setq lsp-prefer-flymake nil
+		lsp-idle-delay 0.5))
+
+(use-package lsp-ui
+  :after lsp-mode
+  :commands lsp-ui-mode
+  :config
+  (setq lsp-ui-sideline-enable t))
+
+(use-package use-package-chords
+  :config (key-chord-mode t))
+
+(use-package ace-jump-mode
+  :chords (("jj" . ace-jump-char-mode)
+		   ("jk" . ace-jump-word-mode)
+		   ("jl" . ace-jump-line-mode)))
+
+(use-package phi-search)
+;;  :bind (("C-s" . phi-search)
+;; 		 ("C-r" . phi-search-backward)))
