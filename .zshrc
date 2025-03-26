@@ -1,12 +1,12 @@
 # My own prompt
-export PROMPT="%(?.%F{green}.%F{red}[%?] )%1~%f "
+export PROMPT=" %(?.%F{green}.%F{red})%1~%f "
 
 # Path for my own applications
 export PATH="$HOME/.local/bin/:$PATH"
 export GPG_TTY=$(tty)
 
 # Aliases
-#alias ls="ls --color=auto"
+alias ls="ls --color=auto"
 alias diff="diff --color=auto"
 alias grep="grep --color=auto"
 
