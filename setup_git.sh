@@ -8,3 +8,4 @@ git config --global user.name ErikG
 # git config --global commit.gpgsign true
 # git config --global tag.gpgsign true
 git config --global --list
+printf '\nGithub configuration sucessful!\n'
