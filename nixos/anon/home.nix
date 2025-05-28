@@ -6,19 +6,22 @@
 	home.stateVersion = "25.05";
 
 	home.packages = with pkgs; [
-		neofetch
-		emacs
-		vscode
-		helix
-		zed-editor
-		ripgrep
-		fzf
-		tree
 		btop
-		gnumake
 		clang
-		llvm
+		emacs
+		fzf
+		gnumake
+		helix
+		kitty
 		lldb
+		llvm
+		neofetch
+		ripgrep
+		tree
+		vscode
+		waybar
+		wofi
+		zed-editor
 	];
 
 	home.file = {
