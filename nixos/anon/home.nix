@@ -6,9 +6,12 @@
 	home.stateVersion = "25.05";
 
 	home.packages = with pkgs; [
+		bemenu
+		brightnessctl
 		btop
 		clang
 		emacs
+		equibop
 		fzf
 		gnumake
 		helix
@@ -20,9 +23,7 @@
 		tree
 		vscode
 		waybar
-		wofi
 		zed-editor
-		brightnessctl
 	];
 
 	home.file = {
