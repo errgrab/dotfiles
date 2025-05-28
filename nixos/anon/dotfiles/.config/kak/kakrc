@@ -1,0 +1,9 @@
+face global Default rgb:cccccc,rgb:000000+N
+colorscheme gruvbox-dark
+
+set-option global indentwidth 0
+set-option global tabstop 4
+
+addhl global/rln number-lines -relative
+addhl global/trl show-whitespaces -only-trailing -spc '·' -lf ' '
+addhl global/lcs show-whitespaces -tab '»' -spc ' ' -lf ' '
