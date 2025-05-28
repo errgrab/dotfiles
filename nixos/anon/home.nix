@@ -22,6 +22,7 @@
 		waybar
 		wofi
 		zed-editor
+		brightnessctl
 	];
 
 	home.file = {
