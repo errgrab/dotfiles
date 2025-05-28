@@ -26,10 +26,6 @@
 			source = ./dotfiles/.config;
 			recursive = true;
 		};
-		".emacs.d" = {
-			source = ./dotfiles/.emacs.d;
-			recursive = true;
-		};
 	};
 
 	programs.git = {
