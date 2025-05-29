@@ -63,6 +63,7 @@ button:hover {
 #temperature,
 #network,
 #pulseaudio,
+#battery,
 #custom-power {
 	background-color: @background;
 	padding: 0.5rem 1rem;

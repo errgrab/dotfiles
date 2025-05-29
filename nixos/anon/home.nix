@@ -33,6 +33,7 @@
 
 	imports = [
 		./config/waybar/waybar.nix
+		./cofnig/kitty/kitty.nix
 	];
 
 	home.file = {
@@ -72,21 +73,6 @@
 			plugins = [];
 			theme = "";
 		};
-	};
-
-	programs.kitty = {
-		enable = true;
-		font = {
-			name = "Iosevka Term";
-			size = 12;
-			#name = "eldur";
-			#size = 9.75;
-		};
-		settings = {
-			cursor_blink_interval = 0;
-			window_margin_width = 10;
-		};
-		themeFile = "Catppuccin-Mocha";
 	};
 
 	home.sessionVariables = {

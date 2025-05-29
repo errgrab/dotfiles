@@ -14,7 +14,7 @@
 					disable-scroll = true;
 					all-outputs = true;
 					format = " {icon} ";
-					format-icons = { default = " "; };
+					format-icons = { default = ""; };
 				};
 				"clock" = {
 					timezone = "Europe/Lisbon";
@@ -43,6 +43,7 @@
 				};
 				"pulseaudio" = {
 					format = "{icon} {volume} {format_source}";
+					format-muted = "  {format_source}";
 					format-source = " {volume}";
 					format-source-muted = " ";
 					format-icons = {
@@ -54,9 +55,9 @@
 					states = {
 						warning = 30;
 						critical = 15;
-						format = "{icon} {capacity}%";
-						format-icons = [" " " " " " " " " "];
 					};
+					format = "{icon} {capacity}%";
+					format-icons = [" " " " " " " " " "];
 				};
 				"tray" = {
 					icon-size = 21;
