@@ -56,13 +56,6 @@
 
 	fonts.enableDefaultPackages = true;
 
-	fonts.packages = with pkgs; [
-		noto-fonts
-		noto-fonts-cjk-sans
-		noto-fonts-emoji
-		nerd-fonts.zed-mono
-	];
-
 	environment.variables.EDITOR = "nvim";
 	nixpkgs.config.allowUnfree = true;
 

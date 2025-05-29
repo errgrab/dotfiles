@@ -10,20 +10,29 @@
 		brightnessctl
 		btop
 		clang
+		cozette
 		emacs
 		equibop
 		fzf
 		gnumake
 		helix
+		iosevka-term
 		kitty
 		lldb
 		llvm
 		neofetch
+		nerd-fonts.iosevka-term
+		nerd-fonts.monoid
 		ripgrep
 		tree
+		tmux
 		vscode
 		waybar
 		zed-editor
+	];
+
+	imports = [
+		./config/waybar/waybar.nix
 	];
 
 	home.file = {
@@ -65,11 +74,25 @@
 		};
 	};
 
+	programs.kitty = {
+		enable = true;
+		font = {
+			package = pkgs.iosevka-term;
+			name = "Iosevka Term";
+			size = 12;
+			#name = "eldur";
+			#size = 9.75;
+		};
+		settings = {
+			cursor_blink_interval = 0;
+			window_margin_width = 10;
+		};
+	};
+
 	home.sessionVariables = {
 		EDITOR = "nvim";
 	};
 
 	programs.home-manager.enable = true;
-
 	nixpkgs.config.allowUnfree = true;
 }
