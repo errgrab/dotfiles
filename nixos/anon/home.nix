@@ -33,15 +33,9 @@
 
 	imports = [
 		./config/waybar/waybar.nix
-		./cofnig/kitty/kitty.nix
+		./config/kitty/kitty.nix
+		./config/tmux/tmux.nix
 	];
-
-	home.file = {
-		".config" = {
-			source = ./dotfiles/.config;
-			recursive = true;
-		};
-	};
 
 	programs.git = {
 		enable = true;
@@ -72,6 +66,14 @@
 			enable = true;
 			plugins = [];
 			theme = "";
+		};
+	};
+
+	# When program.nix isn't enought
+	home.file = {
+		".config" = {
+			source = ./dotfiles/.config;
+			recursive = true;
 		};
 	};
 
