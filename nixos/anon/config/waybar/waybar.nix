@@ -21,14 +21,14 @@
 					tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
 					format-alt = "{:%d/%m/%Y}";
 				};
-				"cpu": {
+				"memory" = {
+					format = "  {}%";
+				};
+				"cpu" = {
 					format = "  {usage}%";
 					tooltip = false;
 				};
-				"memory": {
-					format = "  {}%";
-				};
-				"temperature": {
+				"temperature" = {
 					critical-threshold = 80;
 					format = "{icon} {temperatureC}°C";
 					format-icons = [" " " " " "];
