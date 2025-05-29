@@ -16,12 +16,12 @@
 		fzf
 		gnumake
 		helix
-		iosevka-term
+		iosevka
 		kitty
 		lldb
 		llvm
 		neofetch
-		nerd-fonts.iosevka-term
+		nerd-fonts.iosevka
 		nerd-fonts.monoid
 		ripgrep
 		tree
@@ -77,7 +77,6 @@
 	programs.kitty = {
 		enable = true;
 		font = {
-			package = pkgs.iosevka-term;
 			name = "Iosevka Term";
 			size = 12;
 			#name = "eldur";
@@ -87,6 +86,7 @@
 			cursor_blink_interval = 0;
 			window_margin_width = 10;
 		};
+		themeFile = "Catppuccin-Mocha";
 	};
 
 	home.sessionVariables = {
