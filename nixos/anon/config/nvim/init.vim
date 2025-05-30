@@ -1,4 +1,4 @@
-colo catppuccin
+colo catppuccin_mocha
 hi Normal guibg=#000000
 hi ColorColumn guibg=#333333
 se ts=4 sw=4 noet nu rnu sc si ai hls is mouse=a tgc cc=80
