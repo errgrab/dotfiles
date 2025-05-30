@@ -6,7 +6,7 @@
 		customPaneNavigationAndResize = true;
 		disableConfirmationPrompt = true;
 		escapeTime = 0;
-		extraConfig = builtins.readFile ./extra.conf;
+		extraConfig = builtins.readFile ./tmux.conf;
 		keyMode = "vi";
 		mouse = true;
 		prefix = "`";
