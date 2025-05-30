@@ -35,6 +35,7 @@
 		./config/waybar/waybar.nix
 		./config/kitty/kitty.nix
 		./config/tmux/tmux.nix
+		./config/nvim/nvim.nix
 	];
 
 	programs.git = {
