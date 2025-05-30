@@ -12,7 +12,7 @@
 				"hyprland/workspaces" = {
 					on-click = "activate";
 					disable-scroll = true;
-					all-outputs = true;
+					#all-outputs = true;
 					format = " {icon} ";
 					format-icons = { default = ""; };
 				};
