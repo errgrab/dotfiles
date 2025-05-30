@@ -12,9 +12,11 @@
 				"hyprland/workspaces" = {
 					on-click = "activate";
 					disable-scroll = true;
-					#all-outputs = true;
 					format = " {icon} ";
 					format-icons = { default = ""; };
+					persistent-workspaces = {
+						"*" = 5;
+					};
 				};
 				"clock" = {
 					timezone = "Europe/Lisbon";
