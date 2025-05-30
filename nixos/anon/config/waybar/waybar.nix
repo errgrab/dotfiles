@@ -7,8 +7,9 @@
 				layer = "top";
 				position = "top";
 				modules-left = [ "hyprland/workspaces" ];
-				modules-center = [ "clock" ];
-				modules-right = [ "memory" "cpu" "temperature" "network" "pulseaudio" "battery" "tray" "custom/power" ];
+				modules-right = [ 
+					"memory" "cpu" "temperature" "network" "pulseaudio" "battery" "tray" "clock" "custom/power"
+				];
 				"hyprland/workspaces" = {
 					on-click = "activate";
 					disable-scroll = true;
