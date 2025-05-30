@@ -4,7 +4,7 @@
 		defaultEditor = true;
 		extraConfig = builtins.readFile ./init.vim;
 		plugins = with pkgs.vimPlugins; [
-			catppuccin-vim
+			catppuccin-nvim
 		];
 		viAlias = true;
 		vimAlias = true;
