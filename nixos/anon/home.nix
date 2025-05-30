@@ -1,5 +1,4 @@
-{ config, pkgs, ... }:
-{
+{ config, pkgs, ... }: {
 	home.username = "anon";
 	home.homeDirectory = "/home/anon";
 
@@ -76,10 +75,6 @@
 			source = ./dotfiles/.config;
 			recursive = true;
 		};
-	};
-
-	home.sessionVariables = {
-		EDITOR = "nvim";
 	};
 
 	programs.home-manager.enable = true;
