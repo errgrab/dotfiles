@@ -46,7 +46,7 @@
 		userEmail = "eriklustosa@gmail.com";
 	};
 
-	programs.starship = {
+/*	programs.starship = {
 		enable = true;
 		settings = {
 			add_newline = false;
@@ -54,6 +54,7 @@
 			directory.truncation_length = 1;
 		};
 	};
+*/
 
 	# When program.nix isn't enought
 	home.file = {
