@@ -6,6 +6,7 @@
 
 	home.packages = with pkgs; [
 		bemenu
+		brave
 		brightnessctl
 		btop
 		clang
@@ -23,8 +24,8 @@
 		nerd-fonts.iosevka
 		nerd-fonts.monoid
 		ripgrep
-		tree
 		tmux
+		tree
 		vscode
 		waybar
 		zed-editor
