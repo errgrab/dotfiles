@@ -72,7 +72,7 @@
 	# When program.nix isn't enought
 	home.file = {
 		".config" = {
-			source = ./dotfiles/.config;
+			source = ./config/.config;
 			recursive = true;
 		};
 	};
