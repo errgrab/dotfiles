@@ -37,6 +37,7 @@
 		./config/tmux/tmux.nix
 		./config/nvim/nvim.nix
 		./config/helix/helix.nix
+		./config/zsh/zsh.nix
 	];
 
 	programs.git = {
@@ -51,23 +52,6 @@
 			add_newline = false;
 			line_break.disabled = true;
 			directory.truncation_length = 1;
-		};
-	};
-
-	programs.zsh = {
-		enable = true;
-		shellAliases = {
-			ls = "ls --color=auto";
-			diff = "diff --color=auto";
-			grep = "grep --color=auto";
-		};
-		initContent = ''
-			export PATH="$HOME/.local/bin/:$PATH"
-		'';
-		oh-my-zsh = {
-			enable = true;
-			plugins = [];
-			theme = "";
 		};
 	};
 
