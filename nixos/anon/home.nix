@@ -35,6 +35,7 @@
 		./config/kitty/kitty.nix
 		./config/tmux/tmux.nix
 		./config/nvim/nvim.nix
+		./config/helix/helix.nix
 	];
 
 	programs.git = {
