@@ -11,7 +11,7 @@
 		'';
 		oh-my-zsh = {
 			enable = true;
-			plugins = [ git gitfast ];
+			plugins = [ "git" "gitfast" ];
 			theme = "robbyrussell";
 		};
 	};
