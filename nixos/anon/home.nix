@@ -17,6 +17,7 @@
 		gnumake
 		helix
 		iosevka
+		kakoune
 		kitty
 		lldb
 		llvm
@@ -39,24 +40,11 @@
 		./config/helix/helix.nix
 		./config/zsh/zsh.nix
 		./config/starship/starship.nix
+		./config/git/git.nix
+		./config/kakoune/kakoune.nix
 	];
 
-	programs.git = {
-		enable = true;
-		userName = "ErikG";
-		userEmail = "eriklustosa@gmail.com";
-	};
-
-/*	programs.starship = {
-		enable = true;
-		settings = {
-			add_newline = false;
-			line_break.disabled = true;
-			directory.truncation_length = 1;
-		};
-	};*/
-
-	# When program.nix isn't enought
+	# When the imports isn't enought
 	home.file = {
 		".config" = {
 			source = ./config/.config;
@@ -65,5 +53,4 @@
 	};
 
 	programs.home-manager.enable = true;
-	nixpkgs.config.allowUnfree = true;
 }
