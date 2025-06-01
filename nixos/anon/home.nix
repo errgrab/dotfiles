@@ -38,6 +38,7 @@
 		./config/nvim/nvim.nix
 		./config/helix/helix.nix
 		./config/zsh/zsh.nix
+		./config/starship/starship.nix
 	];
 
 	programs.git = {
@@ -53,8 +54,7 @@
 			line_break.disabled = true;
 			directory.truncation_length = 1;
 		};
-	};
-*/
+	};*/
 
 	# When program.nix isn't enought
 	home.file = {
