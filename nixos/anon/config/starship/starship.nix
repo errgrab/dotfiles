@@ -2,22 +2,12 @@
 	programs.starship = {
 		enable = true;
 		settings = {
-			directory.disabled = true;
-
-			custom.success_dir = {
-				when = "test $? -eq 0";
-				shell = "zsh";
-				command = "print -P \"%1~\"";
-				format = "[$output](bold green)";
-				style = "";
-			};
-
-			custom.error_dir = {
-				when = "test $? -ne 0";
-				shell = "zsh";
-				command = "print -P \"%1~\"";
-				format = "[$output](bold red)";
-				style = "";
+			add_newline = false;
+			line_break.disabled = true;
+			directory.truncation_length = 1;
+			character = {
+				success_symbol = "[◆](bold green) ";
+				error_symbol = "[◆](bold red) ";
 			};
 		};
 	};
