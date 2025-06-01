@@ -5,9 +5,14 @@
 			add_newline = false;
 			line_break.disabled = true;
 			directory.truncation_length = 1;
+			status = {
+				disabled = false;
+				format = "[\[$status\]]($style)";
+			};
 			character = {
-				success_symbol = "[◆](bold green)";
-				error_symbol = "[◆](bold red)";
+				disabled = true;
+				success_symbol = "[➜](bold green)";
+				error_symbol = "[➜](bold red)";
 			};
 		};
 	};
