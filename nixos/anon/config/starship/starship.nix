@@ -9,7 +9,7 @@
 			directory.truncation_length = 1;
 			status = {
 				disabled = false;
-				format = "[\\[$status\\]]($style)";
+				format = "[\\[$status\\]]($style) ";
 			};
 		};
 	};
