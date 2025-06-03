@@ -29,6 +29,7 @@
 		tree
 		vscode
 		waybar
+		weechat
 		zed-editor
 	];
 

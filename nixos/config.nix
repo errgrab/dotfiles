@@ -32,6 +32,13 @@
 		jack.enable = true;
 	};
 
+	services.bitlbee = {
+		enable = true;
+		libpurple_plugins = with pkgs; [
+			libpurple-discord
+		];
+	};
+
 	users.users.anon = {
 		isNormalUser = true;
 		description = "Anonymous";
