@@ -15,6 +15,7 @@
 		equibop
 		fzf
 		gnumake
+		grim
 		helix
 		iosevka
 		kakoune
@@ -25,11 +26,13 @@
 		nerd-fonts.iosevka
 		nerd-fonts.monoid
 		ripgrep
+		slurp
 		tmux
 		tree
 		vscode
 		waybar
 		weechat
+		wl-copy
 		zed-editor
 	];
 
