@@ -34,9 +34,7 @@
 
 	services.bitlbee = {
 		enable = true;
-		libpurple_plugins = with pkgs; [
-			purple-discord
-		];
+		plugins = with pkgs; [ bitlbee-discord ];
 	};
 
 	users.users.anon = {
