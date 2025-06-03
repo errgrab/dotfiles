@@ -32,7 +32,7 @@
 		vscode
 		waybar
 		weechat
-		wl-copy
+		wl-clipboard
 		zed-editor
 	];
 
