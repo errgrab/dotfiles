@@ -35,7 +35,7 @@
 	services.bitlbee = {
 		enable = true;
 		libpurple_plugins = with pkgs; [
-			libpurple-discord
+			purple-discord
 		];
 	};
 
