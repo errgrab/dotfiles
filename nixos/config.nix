@@ -53,7 +53,11 @@
 	environment.systemPackages = with pkgs; [
 		neovim
 		git
+		man-pages
+		man-pages-posix
 	];
+
+	documentation.dev.enable = true;
 
 	fonts.enableDefaultPackages = true;
 
