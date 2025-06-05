@@ -6,6 +6,15 @@
 			indentWidth = 0;
 			tabStop = 4;
 			colorScheme = "catppuccin_mocha";
+			numberLines = {
+				enable = true;
+				relative = true;
+			};
+			showWhitespace = {
+				enable = true;
+				space = "·";
+				tab = "»";
+			};
 		};
 	};
 }

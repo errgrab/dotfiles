@@ -33,7 +33,6 @@
 		waybar
 		weechat
 		wl-clipboard
-		zed-editor
 	];
 
 	imports = [
