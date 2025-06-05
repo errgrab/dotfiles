@@ -11,9 +11,6 @@
 				relative = true;
 			};
 		};
-		extraConfig = ''
-addhl global/trl show-whitespaces -only-trailing -tab '»' -spc '·' -lf ' '
-addhl global/lcs show-whitespaces -tab '»' -spc ' ' -lf ' '
-'';
+		extraConfig = builtins.readFile ./extra.kak;
 	};
 }
