@@ -13,9 +13,10 @@
 			showWhitespace = {
 				enable = true;
 				tab = "»";
+				space = " ";
 				lineFeed = " ";
 			};
 		};
-		extraConfig = "addhl global/lcs show-whitespaces -only-trailing -spc '·' -lf ' '";
+		extraConfig = "addhl global/ show-whitespaces -only-trailing -spc '·' -lf ' '";
 	};
 }
