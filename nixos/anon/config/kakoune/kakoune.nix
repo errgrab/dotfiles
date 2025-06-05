@@ -17,6 +17,9 @@
 				lineFeed = " ";
 			};
 		};
-		extraConfig = "addhl global/ show-whitespaces -only-trailing -spc '·' -lf ' '";
+		extraConfig = ''
+			addhl global/trl show-whitespaces -only-trailing -spc '·' -lf ' '
+			addhl global/lcs show-whitespaces -tab '»' -spc ' ' -lf ' '
+		'';
 	};
 }
