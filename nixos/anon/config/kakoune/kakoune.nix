@@ -14,6 +14,7 @@
 				enable = true;
 				space = "·";
 				tab = "»";
+				lineFeed = " ";
 			};
 		};
 	};
