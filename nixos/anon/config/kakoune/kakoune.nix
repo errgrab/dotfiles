@@ -10,16 +10,10 @@
 				enable = true;
 				relative = true;
 			};
-			showWhitespace = {
-				enable = true;
-				tab = "»";
-				space = " ";
-				lineFeed = " ";
-			};
 		};
 		extraConfig = ''
-			addhl global/trl show-whitespaces -only-trailing -spc '·' -lf ' '
-			addhl global/lcs show-whitespaces -tab '»' -spc ' ' -lf ' '
-		'';
+addhl global/trl show-whitespaces -only-trailing -spc '·' -lf ' '
+addhl global/lcs show-whitespaces -tab '»' -spc ' ' -lf ' '
+'';
 	};
 }
