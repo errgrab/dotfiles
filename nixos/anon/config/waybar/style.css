@@ -84,10 +84,6 @@ button:hover {
 #disk {
 }
 
-#network:hover {
-	background-color: @background-selected;
-}
-
 #network.disconnected {
 }
 
@@ -112,5 +108,14 @@ button:hover {
 	background-color: @background-selected;
 }
 
+#network:hover {
+	background-color: @background-selected;
+}
+
+#clock:hover {
+	background-color: @background-selected;
+}
+
 #tray:hover {
+	background-color: @background-selected;
 }
