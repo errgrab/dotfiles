@@ -1,0 +1,33 @@
+{ config, pkgs, ... }: {
+	home.packages = with pkgs; [
+		aichat
+		bemenu
+		brave
+		brightnessctl
+		btop
+		clang
+		cozette
+		emacs
+		equibop
+		fzf
+		gnumake
+		grim
+		helix
+		iosevka
+		kakoune
+		kitty
+		lldb
+		llvm
+		neofetch
+		nerd-fonts.iosevka
+		nerd-fonts.monoid
+		ripgrep
+		slurp
+		tmux
+		tree
+		vscode
+		waybar
+		weechat
+		wl-clipboard
+	];
+}

@@ -4,39 +4,8 @@
 
 	home.stateVersion = "25.05";
 
-	home.packages = with pkgs; [
-		aichat
-		bemenu
-		brave
-		brightnessctl
-		btop
-		clang
-		cozette
-		emacs
-		equibop
-		fzf
-		gnumake
-		grim
-		helix
-		iosevka
-		kakoune
-		kitty
-		lldb
-		llvm
-		neofetch
-		nerd-fonts.iosevka
-		nerd-fonts.monoid
-		ripgrep
-		slurp
-		tmux
-		tree
-		vscode
-		waybar
-		weechat
-		wl-clipboard
-	];
-
 	imports = [
+		./config/pkgs/pkgs.nix
 		./config/waybar/waybar.nix
 		./config/kitty/kitty.nix
 		./config/tmux/tmux.nix
@@ -46,15 +15,8 @@
 		./config/starship/starship.nix
 		./config/git/git.nix
 		./config/kakoune/kakoune.nix
+		./config/files/files.nix
 	];
-
-	# When the imports isn't enought
-	home.file = {
-		".config" = {
-			source = ./config/.config;
-			recursive = true;
-		};
-	};
 
 	programs.home-manager.enable = true;
 }
