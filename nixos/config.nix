@@ -38,6 +38,9 @@
 		libpurple_plugins = with pkgs; [ purple-discord ];
 	};
 
+	services.avahi.enable = true;
+	services.avahi.nssmdns = true;
+
 	users.users.anon = {
 		isNormalUser = true;
 		description = "Anonymous";
