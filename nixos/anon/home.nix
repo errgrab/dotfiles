@@ -9,7 +9,7 @@
 		./config/waybar/waybar.nix
 		./config/kitty/kitty.nix
 		./config/tmux/tmux.nix
-		./config/nvim/nvim.nix
+		./config/neovim/neovim.nix
 		./config/helix/helix.nix
 		./config/zsh/zsh.nix
 		./config/starship/starship.nix
