@@ -1,6 +1,6 @@
 { config, pkgs, ... }: {
 	home.packages = with pkgs; [
-		aichat
+		aider-chat-full
 		bemenu
 		brave
 		brightnessctl
@@ -9,6 +9,7 @@
 		cozette
 		emacs
 		equibop
+		fabric-ai
 		fzf
 		gnumake
 		grim
