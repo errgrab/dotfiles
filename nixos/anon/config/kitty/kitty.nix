@@ -2,7 +2,8 @@
 	programs.kitty = {
 		enable = true;
 		font = {
-			name = "Iosevka Term";
+			#name = "Iosevka Term";
+			name = "cozette";
 			size = 12;
 			#name = "eldur";
 			#size = 9.75;
