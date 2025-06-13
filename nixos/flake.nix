@@ -8,13 +8,23 @@
 	};
 
 	outputs = { self, nixpkgs, home-manager, ... }@inputs: {
-		nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+		nixosConfigurations.tawa = nixpkgs.lib.nixosSystem {
 			modules = [
-				./config.nix
+				./hosts/tawa/config.nix
 				home-manager.nixosModules.home-manager {
 					home-manager.useGlobalPkgs = true;
 					home-manager.useUserPackages = true;
-					home-manager.users.anon = import ./anon/home.nix;
+					home-manager.users.anon = import ./users/anon/home.nix;
+				}
+			];
+		};
+		nixosConfigurations.tomo = nixpkgs.lib.nixosSystem {
+			modules = [
+				./hosts/tomo/config.nix
+				home-manager.nixosModules.home-manager {
+					home-manager.useGlobalPkgs = true;
+					home-manager.useUserPackages = true;
+					home-manager.users.anon = import ./users/anon/home.nix;
 				}
 			];
 		};
