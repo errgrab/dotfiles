@@ -1,0 +1,15 @@
+add_newline = false
+format = "$status$all"
+
+[character]
+disabled = true
+
+[directory]
+truncation_length = 1
+
+[line_break]
+disabled = true
+
+[status]
+disabled = false
+format = "[\\[$status\\]]($style) "
