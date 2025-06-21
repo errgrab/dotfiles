@@ -1,0 +1,37 @@
+#+title: Emacs Configuration
+#+PROPERTY: header-args:emacs-lisp :tangle init.el
+
+* Initialization
+** This removes:
+*** Menus
+*** Bars
+*** Splash Screen
+** Starts with Org-Mode
+#+begin_src emacs-lisp
+  (menu-bar-mode 0)
+  (scroll-bar-mode 0)
+  (tool-bar-mode 0)
+
+  (setq inhibit-startup-screen t
+        initial-scratch-message nil
+        initial-major-mode 'org-mode)
+#+end_src
+* Change font
+#+begin_src emacs-lisp
+  (set-face-attribute 'default nil :font "ZedMono Nerd Font" :height 120)
+#+end_src
+* Change theme
+#+begin_src emacs-lisp
+  (load-theme 'modus-vivendi t)
+#+end_src
+* Use UTF-8 everywhere
+#+begin_src emacs-lisp
+  (set-language-environment "UTF-8")
+  (set-default-coding-systems 'utf-8)
+  (prefer-coding-system 'utf-8)
+#+end_src
+* Org-mode
+#+begin_src emacs-lisp
+  (require 'org)
+  (setq org-hide-leading-stars t)
+#+end_src
