@@ -6,6 +6,7 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
+export MANPAGER='nvim +Man!'
 export EDITOR='nvim'
 alias diff='diff --color=auto'
 alias grep='grep --color=auto'
