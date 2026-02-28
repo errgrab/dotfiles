@@ -1,0 +1,304 @@
+#|
+=============================================================================
+  Kanata Configuration — QWERTY / Colemak-DH / EXTEND / Layers
+=============================================================================
+
+  Inspired by:
+  - DreymaR's Big Bag of Keyboard Tricks (EPKL)
+  - Colemak-DH (https://colemakmods.github.io/mod-dh/)
+  - ZMK/QMK multi-layer philosophy
+
+  Layers:
+  0. QWERTY       — Default base layer
+  1. Colemak-DH   — Alternative base layer (ISO)
+  2. EXTEND       — Navigation, editing, mouse, media (hold CapsLock)
+  3. EXTEND2      — NumPad + left-hand nav (hold CapsLock + RAlt)
+  4. SYMBOL       — Programming symbols layer
+  5. FUNCTION     — F-keys, media, brightness, system
+
+  CapsLock behavior:
+  - Hold  → Extend layer (navigation/editing)
+  - Tap   → Escape (very useful for Vim users)
+
+  Layer switching:
+  - RAlt (hold)      → Symbol layer
+  - RAlt + CapsLock  → Extend2 (NumPad) layer
+  - RShift (hold)    → Function layer
+
+  Exit kanata: hold Left Ctrl + Space + Escape simultaneously.
+
+  Windows: works with default kanata or kanata-wintercept.
+  Linux:   works out of the box (evdev/uinput).
+  macOS:   works with Karabiner VirtualHIDDevice driver.
+
+=============================================================================
+|#
+
+(defcfg
+  ;; Process keys not in defsrc so tap-hold works properly everywhere.
+  process-unmapped-keys yes
+
+  ;; Uncomment and set your device on Linux if needed:
+  ;; linux-dev /dev/input/by-id/YOUR-KEYBOARD-ID-event-kbd
+
+  ;; Windows AltGr fix — uncomment if you have AltGr issues:
+  ;; windows-altgr cancel-lctl-press
+
+  ;; Concurrent tap-holds resolve faster
+  concurrent-tap-hold yes
+
+  ;; Small delay for one-shot and tap-hold releases (helps on some systems)
+  rapid-event-delay 5
+)
+
+;; ─────────────────────────────────────────────────────────────────────────────
+;; DEFSRC — Physical key positions (ISO layout)
+;; ─────────────────────────────────────────────────────────────────────────────
+;;
+;; ISO differences from ANSI:
+;; - lsgt (102d): the extra key between Left Shift and Z
+;; - \ (bksl): moves next to Enter on the home row (to the right of ')
+;; - Enter is an upside-down L shape (the ] row position doesn't have \)
+;;
+;; Physical ISO layout reference:
+;; ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
+;; │ ` │ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 9 │ 0 │ - │ = │ Bksp  │
+;; ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
+;; │ Tab │ Q │ W │ E │ R │ T │ Y │ U │ I │ O │ P │ [ │ ] │     │
+;; ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐ Ret │
+;; │ Caps │ A │ S │ D │ F │ G │ H │ J │ K │ L │ ; │ ' │ \ │     │
+;; ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─────┤
+;; │LSft│102│ Z │ X │ C │ V │ B │ N │ M │ , │ . │ / │ RShift  │
+;; ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────────┤
+;; │LCtl│LMet│LAlt│         Space           │RAlt│RMet│  RCtl  │
+;; └────┴────┴────┴─────────────────────────┴────┴────┴────────┘
+
+(defsrc
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]
+  caps a    s    d    f    g    h    j    k    l    ;    '    \    ret
+  lsft lsgt z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt           spc            ralt rmet rctl
+)
+
+;; ─────────────────────────────────────────────────────────────────────────────
+;; VARIABLES
+;; ─────────────────────────────────────────────────────────────────────────────
+
+(defvar
+  ;; Tap-hold timing (tweak to your preference)
+  tap-timeout   100   ;; Tap repress timeout (ms)
+  hold-timeout  200   ;; Hold activation timeout (ms)
+  tt $tap-timeout
+  ht $hold-timeout
+)
+
+;; ─────────────────────────────────────────────────────────────────────────────
+;; ALIASES
+;; ─────────────────────────────────────────────────────────────────────────────
+
+(defalias
+  ;; === CapsLock: tap = Esc, hold = Extend layer ===
+  ext (tap-hold-press $tt $ht esc (layer-toggle extend))
+
+  ;; === RAlt: tap = RAlt, hold = Symbol layer ===
+  sym (tap-hold-press $tt $ht ralt (layer-toggle symbol))
+
+  ;; === RShift: tap = sticky shift, hold = Function layer ===
+  fns (tap-hold-press $tt $ht (one-shot 2000 rsft) (layer-toggle function))
+
+  ;; === Base layer switching (toggle between QWERTY and Colemak-DH) ===
+  qwr (layer-switch qwerty)
+  cmk (layer-switch colemak-dh)
+
+  ;; === Caps Word: activates auto-shift for typing ALL_CAPS_WORDS ===
+  cw  (caps-word 2000)
+
+  ;; === Extend2 (NumPad): accessed by holding Extend + pressing RAlt ===
+  ;; When on Extend layer, RAlt switches to Extend2 (NumPad)
+  np  (layer-toggle extend2)
+
+  ;; === Clipboard shortcuts (work on both Windows and Linux) ===
+  cut  C-x
+  copy C-c
+  pst  C-v
+  undo C-z
+  redo C-y
+  sall C-a
+
+  ;; === Common shortcuts ===
+  save C-s
+  find C-f
+  cls  A-f4     ;; Close window
+
+  ;; === Tab management ===
+  ntab C-t      ;; New tab
+  ctab C-w      ;; Close tab
+  ptab C-S-tab  ;; Previous tab
+  nxtb C-tab    ;; Next tab
+  rtab C-S-t    ;; Reopen closed tab
+
+  ;; === Mouse wheel ===
+  mwu (mwheel-up    50 120)
+  mwd (mwheel-down  50 120)
+  mwl (mwheel-left  50 120)
+  mwr (mwheel-right 50 120)
+
+  ;; === Mouse movement (accelerated) ===
+  mu (movemouse-accel-up    1 1000 1 5)
+  md (movemouse-accel-down  1 1000 1 5)
+  ml (movemouse-accel-left  1 1000 1 5)
+  mr (movemouse-accel-right 1 1000 1 5)
+)
+
+;; ─────────────────────────────────────────────────────────────────────────────
+;; LAYER 0: QWERTY (default base layer)
+;; ─────────────────────────────────────────────────────────────────────────────
+;;
+;; Standard QWERTY with:
+;; - CapsLock → tap: Esc / hold: Extend
+;; - RAlt → tap: RAlt / hold: Symbol
+;; - RShift → tap: one-shot shift / hold: Function
+
+(deflayer qwerty
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]
+  @ext a    s    d    f    g    h    j    k    l    ;    '    \    ret
+  lsft lsgt z    x    c    v    b    n    m    ,    .    /    @fns
+  lctl lmet lalt           spc            @sym rmet rctl
+)
+
+;; ─────────────────────────────────────────────────────────────────────────────
+;; LAYER 1: Colemak-DH (alternative base layer)
+;; ─────────────────────────────────────────────────────────────────────────────
+;;
+;; Colemak-DH ISO layout:
+;;   q  w  f  p  b    j  l  u  y  ;
+;;   a  r  s  t  g    m  n  e  i  o
+;;   z  x  c  d  v    k  h  ,  .  /
+;;
+;; The ISO Colemak-DH uses the Angle Mod intrinsically:
+;; - The bottom-left row shifts: Z moves to the lsgt (102) key position.
+;; - This promotes a more symmetric hand posture.
+
+(deflayer colemak-dh
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    f    p    b    j    l    u    y    ;    [    ]
+  @ext a    r    s    t    g    m    n    e    i    o    '    \    ret
+  lsft z    x    c    d    v    k    h    ,    .    /    _    @fns
+  lctl lmet lalt           spc            @sym rmet rctl
+)
+
+;; ─────────────────────────────────────────────────────────────────────────────
+;; LAYER 2: EXTEND (DreymaR-inspired — hold CapsLock)
+;; ─────────────────────────────────────────────────────────────────────────────
+;;
+;; This is the famous Extend layer from DreymaR's Big Bag.
+;; Hold CapsLock to activate. Positional (works with any base layout).
+;;
+;; Number row → F-keys
+;; Left hand  → Modifiers (home row), Esc, Mouse wheel, Browser nav,
+;;              Undo/Cut/Copy/Paste, Mouse buttons
+;; Right hand → Navigation (PgUp/PgDn/Home/End/Arrows), Backspace, Delete, Menu
+;; Space      → Enter
+;;
+;; The home row modifiers (Alt, Shift, Ctrl on A, S, D) let you chord
+;; powerful combos like:
+;;   Ext+S+D+N = Ctrl+Shift+Left = Select Previous Word
+;;   Ext+A+4   = Alt+F4          = Close Window
+;;   Ext+D+J   = Ctrl+PgUp       = Previous Tab
+;;
+;; Layout reference (positional — works with any base layout):
+;; ┌─────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬──────┐
+;; │  `  │ F1 │ F2 │ F3 │ F4 │ F5 │ F6 │ F7 │ F8 │ F9 │F10 │F11 │F12 │ ---- │
+;; ├───┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬──────┤
+;; │Tab│Esc │WhUp│BrBk│BrFw│MsUp│PgUp│Home│ Up │End │Del │Ins │PrSc│      │
+;; ├───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┐ Ret │
+;; │HOLD│Alt │WhDn│Shft│Ctrl│MsDn│PgDn│Left│Down│Rght│Bksp│Menu│Fav │     │
+;; ├──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴────────┤
+;; │--│MsOn│Undo│Cut │Copy│Pste│Bt1 │Bt2 │Bt3 │MLft│MRgt│ -- │   ------  │
+;; ├──┼────┼────┼────┴────┴────┴────┴────┴────┼────┼────┼────────────────┤
+;; │--│ -- │ -- │           Enter              │Ext2│ -- │ --             │
+;; └──┴────┴────┴─────────────────────────────┴────┴────┴────────────────┘
+
+(deflayer extend
+  _    f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  _
+  _    esc  @mwu bck  fwd  @mu  pgup home up   end  del  ins  prtsc
+  _    lalt @mwd lsft lctl @md  pgdn left down rght bspc menu _    ret
+  _    _    @undo @cut @copy @pst mlft mrgt mmid @ml @mr  _    _
+  _    _    _              ret            @np  _    _
+)
+
+;; ─────────────────────────────────────────────────────────────────────────────
+;; LAYER 3: EXTEND2 — NumPad + Left-hand Nav (Extend + RAlt)
+;; ─────────────────────────────────────────────────────────────────────────────
+;;
+;; Accessed by holding CapsLock (Extend), then pressing RAlt.
+;; Navigation moves to the left hand; NumPad on the right.
+;;
+;; ┌─────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬──────┐
+;; │  `  │ !  │ @  │ #  │ $  │ %  │ ^  │KP7 │KP8 │KP9 │KP* │KP- │KP= │ Bksp │
+;; ├───┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬──────┤
+;; │Tab│Home│ Up │End │Del │Esc │PgUp│KP4 │KP5 │KP6 │KP+ │ (  │ )  │      │
+;; ├───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┐ Ret │
+;; │HOLD│Left│Down│Rght│Bksp│NmLk│PgDn│KP1 │KP2 │KP3 │KPEn│ '  │ \  │     │
+;; ├──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴────────┤
+;; │--│ -- │Undo│Cut │Copy│Pste│Bt1 │ ,  │KP0 │KP0 │KP. │KP/ │   ---     │
+;; └──┴────┴────┴────┴────┴────┴────┴────┴────┴────┴────┴────┴───────────┘
+
+(deflayer extend2
+  grv  S-1  S-2  S-3  S-4  S-5  S-6  kp7  kp8  kp9  kp*  kp-  _    bspc
+  _    home up   end  del  esc  pgup kp4  kp5  kp6  kp+  S-9  S-0
+  _    left down rght bspc nlk  pgdn kp1  kp2  kp3  kprt '    \    ret
+  _    _    @undo @cut @copy @pst mlft ,   kp0  kp0  kp.  kp/  _
+  _    _    _              spc            _    _    _
+)
+
+;; ─────────────────────────────────────────────────────────────────────────────
+;; LAYER 4: SYMBOL (hold RAlt)
+;; ─────────────────────────────────────────────────────────────────────────────
+;;
+;; Programming symbols arranged for easy access.
+;; Pairs are placed together for muscle memory.
+;;
+;; ┌─────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬──────┐
+;; │  ~  │ F1 │ F2 │ F3 │ F4 │ F5 │ F6 │ F7 │ F8 │ F9 │F10 │F11 │F12 │ Del  │
+;; ├───┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬──────┤
+;; │   │ !  │ @  │ #  │ $  │ %  │ ^  │ &  │ *  │ (  │ )  │ {  │ }  │      │
+;; ├───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┐     │
+;; │    │ `  │ ~  │ -  │ =  │ +  │ :  │ [  │ ]  │ (  │ )  │ "  │ |  │     │
+;; ├──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴────────┤
+;; │  │ \  │ |  │ _  │ <  │ >  │ /  │ {  │ }  │ <  │ >  │    │           │
+;; └──┴────┴────┴────┴────┴────┴────┴────┴────┴────┴────┴────┴───────────┘
+
+(deflayer symbol
+  S-grv f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  del
+  _    S-1  S-2  S-3  S-4  S-5  S-6  S-7  S-8  S-9  S-0  S-[  S-]
+  _    grv  S-grv -   =    S-=  S-;  [    ]    S-9  S-0  S-'  S-\  _
+  _    \    S-\  S--  S-,  S-.  /    S-[  S-]  S-,  S-.  _    _
+  _    _    _              _              _    _    _
+)
+
+;; ─────────────────────────────────────────────────────────────────────────────
+;; LAYER 5: FUNCTION (hold RShift)
+;; ─────────────────────────────────────────────────────────────────────────────
+;;
+;; F-keys, media controls, brightness, system keys, and layer switching.
+;;
+;; ┌─────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬──────┐
+;; │ScrLk│ F1 │ F2 │ F3 │ F4 │ F5 │ F6 │ F7 │ F8 │ F9 │F10 │F11 │F12 │      │
+;; ├───┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬──────┤
+;; │   │QWR │CMK │RLOD│    │    │    │Bri-│Bri+│    │PrSc│ScrL│Paus│      │
+;; ├───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┬───┴┐     │
+;; │CpWd│Prev│Vol-│Vol+│Next│    │    │Play│Stop│Mute│    │    │    │     │
+;; ├──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴──┬─┴────────┤
+;; │  │    │    │    │    │    │    │    │    │    │    │    │  HOLD       │
+;; └──┴────┴────┴────┴────┴────┴────┴────┴────┴────┴────┴────┴───────────┘
+
+(deflayer function
+  slck f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  _
+  _    @qwr @cmk lrld _    _    _    brdn brup _    prtsc slck pause
+  @cw  prev vold volu next _    _    pp   stopcd mute _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _              _              _    _    _
+)
