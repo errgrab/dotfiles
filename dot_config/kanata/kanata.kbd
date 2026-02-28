@@ -9,27 +9,24 @@
   - ZMK/QMK multi-layer philosophy
 
   Layers:
-  0. QWERTY       — Default base layer
-  1. Colemak-DH   — Alternative base layer (ISO)
-  2. EXTEND       — Navigation, editing, mouse, media (hold CapsLock)
-  3. EXTEND2      — NumPad + left-hand nav (hold CapsLock + RAlt)
-  4. SYMBOL       — Programming symbols layer
-  5. FUNCTION     — F-keys, media, brightness, system
+  0. QWERTY             — Default base layer
+  1. Colemak-DH         — Alternative base layer (ISO)
+  2. AltGr-QWERTY       — Portuguese accented characters (hold RAlt on QWERTY)
+  3. AltGr-Colemak      — Portuguese accented characters (hold RAlt on Colemak-DH)
+  4. AltGr-Shift-QWERTY — Uppercase Portuguese accents (Shift on AltGr-QWERTY)
+  5. AltGr-Shift-Colemak— Uppercase Portuguese accents (Shift on AltGr-Colemak)
+  6. EXTEND             — Navigation, editing, mouse, media (hold CapsLock)
+  7. EXTEND2            — NumPad + left-hand nav (hold CapsLock + RAlt)
+  8. FUNCTION           — F-keys, media, brightness, system (Extend + /)
 
   CapsLock behavior:
   - Hold  → Extend layer (navigation/editing)
   - Tap   → Escape (very useful for Vim users)
 
   Layer switching:
-  - RAlt (hold)      → Symbol layer
-  - RAlt + CapsLock  → Extend2 (NumPad) layer
-  - RShift (hold)    → Function layer
-
-  Exit kanata: hold Left Ctrl + Space + Escape simultaneously.
-
-  Windows: works with default kanata or kanata-wintercept.
-  Linux:   works out of the box (evdev/uinput).
-  macOS:   works with Karabiner VirtualHIDDevice driver.
+  - RAlt (hold)      → AltGr layer (Portuguese accented characters)
+  - Extend + RAlt    → Extend2 (NumPad) layer
+  - Extend + /       → Function layer
 
 =============================================================================
 |#
@@ -38,8 +35,8 @@
   ;; Process keys not in defsrc so tap-hold works properly everywhere.
   process-unmapped-keys yes
 
-  ;; Uncomment and set your device on Linux if needed:
-  ;; linux-dev /dev/input/by-id/YOUR-KEYBOARD-ID-event-kbd
+  ;; Set your device on Linux:
+  linux-dev /dev/input/by-id/usb-SINO_WEALTH_Gaming_KB-event-kbd
 
   ;; Windows AltGr fix — uncomment if you have AltGr issues:
   ;; windows-altgr cancel-lctl-press
@@ -98,14 +95,52 @@
 ;; ─────────────────────────────────────────────────────────────────────────────
 
 (defalias
+  ;; === Portuguese accented characters ===
+  ;; Acute: á é í ó ú
+  p-á (unicode á)
+  p-é (unicode é)
+  p-í (unicode í)
+  p-ó (unicode ó)
+  p-ú (unicode ú)
+  ;; Grave: à
+  p-à (unicode à)
+  ;; Circumflex: â ê ô
+  p-â (unicode â)
+  p-ê (unicode ê)
+  p-ô (unicode ô)
+  ;; Tilde: ã õ
+  p-ã (unicode ã)
+  p-õ (unicode õ)
+  ;; Cedilla: ç
+  p-ç (unicode ç)
+
+  ;; === Uppercase Portuguese characters ===
+  P-Á (unicode Á)
+  P-É (unicode É)
+  P-Í (unicode Í)
+  P-Ó (unicode Ó)
+  P-Ú (unicode Ú)
+  P-À (unicode À)
+  P-Â (unicode Â)
+  P-Ê (unicode Ê)
+  P-Ô (unicode Ô)
+  P-Ã (unicode Ã)
+  P-Õ (unicode Õ)
+  P-Ç (unicode Ç)
+
   ;; === CapsLock: tap = Esc, hold = Extend layer ===
   ext (tap-hold-press $tt $ht esc (layer-toggle extend))
 
-  ;; === RAlt: tap = RAlt, hold = Symbol layer ===
- ;; sqwr (tap-hold-press $tt $ht ralt (layer-toggle symbol-qwerty))
- ;; scol (tap-hold-press $tt $ht ralt (layer-toggle symbol-colemak))
+  ;; === RAlt: tap = RAlt, hold = AltGr layer ===
+  ;; Each base layer gets its own AltGr layer so accented chars work correctly.
+  agq (tap-hold-press $tt $ht ralt (layer-toggle altgr-qwerty))
+  agc (tap-hold-press $tt $ht ralt (layer-toggle altgr-colemak))
 
-  ;; === RShift: tap = sticky shift, hold = Function layer ===
+  ;; === Shift toggles for AltGr layers (Shift+AltGr → uppercase accents) ===
+  saq (layer-toggle altgr-shift-qwerty)
+  sac (layer-toggle altgr-shift-colemak)
+
+  ;; === Function layer toggle (used on Extend layer's / position) ===
   fns (tap-hold-press $tt $ht (one-shot 2000 rsft) (layer-toggle function))
 
   ;; === Base layer switching (toggle between QWERTY and Colemak-DH) ===
@@ -153,46 +188,33 @@
 )
 
 ;; ─────────────────────────────────────────────────────────────────────────────
-;; TEMPLATE:
-;; ─────────────────────────────────────────────────────────────────────────────
-;;
-;; ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
-;; │   │   │   │   │   │   │   │   │   │   │   │   │   │       │
-;; ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
-;; │     │   │   │   │   │   │   │   │   │   │   │   │   │     │
-;; ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
-;; │      │   │   │   │   │   │   │   │   │   │   │   │   │    │
-;; ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
-;; │    │   │   │   │   │   │   │   │   │   │   │   │          │
-;; ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
-;; │    │    │    │                        │    │    │    │    │
-;; └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
-
-(deflayer template
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _              _              _              _
-)
-
-
-;; ─────────────────────────────────────────────────────────────────────────────
 ;; LAYER 0: QWERTY (default base layer)
 ;; ─────────────────────────────────────────────────────────────────────────────
 ;;
 ;; Standard QWERTY with:
 ;; - CapsLock → tap: Esc / hold: Extend
-;; - RAlt → tap: RAlt / hold: Symbol
-;; - RShift → tap: one-shot shift / hold: Function
+;; - RAlt → tap: RAlt / hold: AltGr (Portuguese accents)
 
 (deflayer qwerty
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
   tab  q    w    e    r    t    y    u    i    o    p    [    ]
   @ext a    s    d    f    g    h    j    k    l    ;    '    \    ret
-  lsft lsgt z    x    c    v    b    n    m    ,    .    /    @fns
-  lctl lmet lalt           spc            ralt           rctl
+  lsft lsgt z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt           spc            @agq           rctl
 )
+
+;; ─────────────────────────────────────────────────────────────────────────────
+;; TEMPLATE (for reference when creating new layers)
+;; ─────────────────────────────────────────────────────────────────────────────
+;;
+;; (deflayer template
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _
+;;   _    _    _              _              _              _
+;; )
+
 
 ;; ─────────────────────────────────────────────────────────────────────────────
 ;; LAYER 1: Colemak-DH (alternative base layer)
@@ -220,11 +242,90 @@
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
   tab  q    w    f    p    b    j    l    u    y    ;    [    ]
   @ext a    r    s    t    g    m    n    e    i    o    '    \    ret
-  lsft z    x    c    d    v    z    k    h    ,    .    /    @fns
-  lctl lmet lalt           spc            ralt           rctl
+  lsft z    x    c    d    v    z    k    h    ,    .    /    rsft
+  lctl lmet lalt           spc            @agc           rctl
 )
 
 ;; ─────────────────────────────────────────────────────────────────────────────
+;; AltGr layers — hold RAlt to produce Portuguese accented characters
+;; ─────────────────────────────────────────────────────────────────────────────
+;;
+;; Layout principle: accent on the vowel key, secondary accents on nearby keys.
+;; Colemak-DH follows Colemak letter positions (not physical QWERTY positions).
+;;
+;; QWERTY AltGr:
+;; ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
+;; │   │   │   │   │   │   │   │   │   │   │   │   │   │       │
+;; ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
+;; │     │ à │ â │ é │ ê │   │   │ ú │ í │ ó │ ô │   │   │     │
+;; ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
+;; │      │ á │ ã │   │ õ │   │   │   │   │   │   │   │   │    │
+;; ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
+;; │    │   │   │   │ ç │   │   │   │   │ ç │   │   │          │
+;; └────┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴──────────┘
+
+(deflayer altgr-qwerty
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    @p-à @p-â @p-é @p-ê _    _    @p-ú @p-í @p-ó @p-ô _    _
+  _    @p-á @p-ã _    @p-õ _    _    _    _    _    _    _    _    _
+  @saq _    _    _    @p-ç _    _    _    _    @p-ç _    _    @saq
+  _    _    _              _              _              _
+)
+
+;; Colemak-DH AltGr (accents follow Colemak letter positions):
+;;
+;; Colemak top row: Q  W  F  P  B  J  L  U  Y  ;
+;; Colemak home:    A  R  S  T  G  M  N  E  I  O
+;; Colemak bottom:  Z  X  C  D  V  Z  K  H  ,  .
+;;
+;; ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
+;; │   │   │   │   │   │   │   │   │   │   │   │   │   │       │
+;; ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
+;; │     │ à │ â │ õ │ ê │   │   │   │ ú │ ô │   │   │   │     │
+;; ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
+;; │      │ á │ ã │   │   │   │   │   │ é │ í │ ó │   │   │    │
+;; ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
+;; │    │   │   │ ç │   │   │   │   │   │ ç │   │   │          │
+;; └────┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴──────────┘
+;;
+;; A variants: A(a)=á, Q(q)=à, R(s)=ã, W(w)=â
+;; E variants: E(k)=é, P(r)=ê
+;; I: I(l)=í
+;; O variants: O(;)=ó, Y(o)=ô
+;; U: U(i)=ú
+;; õ: F(e)=õ (above T, near O area in top row)
+;; ç: C(x)=ç, ,(,)=ç
+
+(deflayer altgr-colemak
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    @p-à @p-â @p-õ @p-ê _    _    _    @p-ú @p-ô _    _    _
+  _    @p-á @p-ã _    _    _    _    _    @p-é @p-í @p-ó _    _    _
+  @sac _    _    @p-ç _    _    _    _    _    @p-ç _    _    @sac
+  _    _    _              _              _              _
+)
+
+;; ─────────────────────────────────────────────────────────────────────────────
+;; Shift+AltGr layers — hold Shift while on AltGr layer for uppercase accents
+;; ─────────────────────────────────────────────────────────────────────────────
+;;
+;; Same layout as the lowercase AltGr layers, but outputs uppercase characters.
+;; Non-accent keys pass through with Shift applied (via lsft in the layer).
+
+(deflayer altgr-shift-qwerty
+  S-grv S-1  S-2  S-3  S-4  S-5  S-6  S-7  S-8  S-9  S-0  S-- S-=  S-bspc
+  S-tab @P-À @P-Â @P-É @P-Ê _    _    @P-Ú @P-Í @P-Ó @P-Ô S-[ S-]
+  _    @P-Á @P-Ã _    @P-Õ _    _    _    _    _    _    _    _    S-ret
+  _    _    _    _    @P-Ç _    _    _    _    @P-Ç _    _    _
+  _    _    _              _              _              _
+)
+
+(deflayer altgr-shift-colemak
+  S-grv S-1  S-2  S-3  S-4  S-5  S-6  S-7  S-8  S-9  S-0  S-- S-=  S-bspc
+  S-tab @P-À @P-Â @P-Õ @P-Ê _    _    _    @P-Ú @P-Ô _    S-[ S-]
+  _    @P-Á @P-Ã _    _    _    _    _    @P-É @P-Í @P-Ó _    _    S-ret
+  _    _    _    @P-Ç _    _    _    _    _    @P-Ç _    _    _
+  _    _    _              _              _              _
+)
 ;; LAYER 2: EXTEND (DreymaR-inspired — hold CapsLock)
 ;; ─────────────────────────────────────────────────────────────────────────────
 ;;
@@ -251,18 +352,18 @@
 ;; ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐ ↵  │
 ;; │      │ALT│MWD│SFT│CTL│MD │PDN│LFT│DWN│RGH│BKS│MEN│   │    │
 ;; ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
-;; │    │   │UND│CUT│CPY│PST│MLF│MRT│MMD│ML │MR │   │          │
+;; │    │   │UND│CUT│CPY│PST│MLF│MRT│MMD│ML │MR │FNS│          │
 ;; ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
 ;; │    │    │    │         Enter          │ NP │    │    │    │
 ;; └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
 
 
 (deflayer extend
-  _    f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  _
-  _    esc  @mwu bck  fwd  @mu  pgup home up   end  del  ins  prtsc
-  _    lalt @mwd lsft lctl @md  pgdn left down rght bspc menu _    ret
-  _    _    @undo @cut @copy @pst mlft mrgt mmid @ml @mr  _    _
-  _    _    _              ret              ralt          _
+  _    f1   f2    f3   f4    f5   f6   f7   f8   f9   f10  f11  f12   _
+  _    esc  @mwu  bck  fwd   @mu  pgup home up   end  del  ins  prtsc
+  _    lalt @mwd  lsft lctl  @md  pgdn left down rght bspc menu _     ret
+  _    _    @undo @cut @copy @pst mlft mrgt mmid @ml  @mr  @fns _
+  _    _    _                ret                 ralt           _
 )
 
 ;; ─────────────────────────────────────────────────────────────────────────────
@@ -293,57 +394,7 @@
 )
 
 ;; ─────────────────────────────────────────────────────────────────────────────
-;; LAYER 4: SYMBOL (hold RAlt)
-;; ─────────────────────────────────────────────────────────────────────────────
-;;
-;; Programming symbols arranged for easy access.
-;; Pairs are placed together for muscle memory.
-;;
-;; Qwerty:
-;;
-;; ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
-;; │ ` │ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 9 │ 0 │ - │ = │ Bksp  │
-;; ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
-;; │ Tab │ Q │ W │ E │ R │ T │ Y │ U │ I │ O │ P │ [ │ ] │     │
-;; ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐ ↵  │
-;; │ Caps │ A │ S │ D │ F │ G │ H │ J │ K │ L │ ; │ ' │ \ │    │
-;; ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
-;; │LSft│102│ Z │ X │ C │ V │ B │ N │ M │ , │ . │ / │ RShift   │
-;; ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
-;; │LCtl│LMet│LAlt│         Space          │RAlt│    │    │RCtl│
-;; └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
-;;
-;; Colemak-DH:
-;;
-;; ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
-;; │ ` │ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 9 │ 0 │ - │ = │ Bksp  │
-;; ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
-;; │ Tab │ Q │ W │ E │ R │ T │ Y │ U │ I │ O │ P │ [ │ ] │     │
-;; ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐ ↵  │
-;; │ Caps │ A │ S │ D │ F │ G │ H │ J │ K │ L │ ; │ ' │ \ │    │
-;; ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
-;; │LSft│102│ Z │ X │ C │ V │ B │ N │ M │ , │ . │ / │ RShift   │
-;; ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
-;; │LCtl│LMet│LAlt│         Space          │RAlt│    │    │RCtl│
-;; └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
-
-
-#|
-(deflayer symbol-qwerty
-  S-grv f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  del
-  _    S-1  S-2  S-3  S-4  S-5  S-6  S-7  S-8  S-9  S-0  S-[  S-]
-  _    grv  S-grv -   =    S-=  S-;  [    ]    S-9  S-0  S-'  S-\  _
-  _    \    S-\  S--  S-,  S-.  /    S-[  S-]  S-,  S-.  _    _
-  _    _    _              _              _              _
-)
-
-(deflayer symbol-colemak
-
-)
-|#
-
-;; ─────────────────────────────────────────────────────────────────────────────
-;; LAYER 5: FUNCTION (hold RShift)
+;; FUNCTION LAYER (Extend + /)
 ;; ─────────────────────────────────────────────────────────────────────────────
 ;;
 ;; F-keys, media controls, brightness, system keys, and layer switching.
@@ -351,9 +402,9 @@
 ;; ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
 ;; │SCL│F1 │F2 │F3 │F4 │F5 │F6 │F7 │F8 │F9 │F10│F11│F12│       │
 ;; ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
-;; │     │QWR│COL│RLD│   │   │   │BRD│BRU│   │PRT│SCL│PAU│     │
+;; │     │QWR│COL│RLD│CW │   │   │BRD│BRU│   │PRT│SCL│PAU│     │
 ;; ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
-;; │ CW   │PRV│VLD│VLU│NXT│   │   │PLY│MUT│   │   │   │   │    │
+;; │      │PRV│VLD│VLU│NXT│   │   │PLY│MUT│   │   │   │   │    │
 ;; ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
 ;; │    │   │   │   │   │   │   │   │   │   │   │   │          │
 ;; ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
@@ -362,8 +413,8 @@
 
 (deflayer function
   slck f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  _
-  _    @qwr @cmk lrld _    _    _    brdn brup _    prtsc slck pause
-  @cw  prev vold volu next _    _    pp   mute _    _    _    _    _
+  _    @qwr @cmk lrld @cw  _    _    brdn brup _    prtsc slck pause
+  _    prev vold volu next _    _    pp   mute _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _              _              _              _
 )
