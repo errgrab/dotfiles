@@ -7,6 +7,9 @@
 (setq inhibit-startup-screen t
       initial-scratch-message nil
       initial-major-mode 'org-mode
+      visible-bell t
+      reng-bell-fuunction 'ignore
+      catppuccin-flavor 'mocha
       custom-file "~/.config/emacs/custom.el")
 
 ;; Enable some aditional things
@@ -43,5 +46,5 @@
   :init (doom-modeline-mode 1))
 
 ;; VI-VI-VI
-(use-package evil
-  :config (evil-mode t))
+;;(use-package evil
+;;  :config (evil-mode t))
