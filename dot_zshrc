@@ -13,5 +13,4 @@ alias diff='diff --color=auto'
 alias grep='grep --color=auto'
 alias ls='ls --color=auto'
 alias vimdiff='nvim -d'
-alias docker=podman
-alias docker-compose='podman compose'
+alias m="micro"
