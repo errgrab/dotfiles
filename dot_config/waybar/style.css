@@ -1,0 +1,153 @@
+/* ─────────────────────────────────────────
+   4-TOKEN COLORSCHEME
+   bg  = #0a0a0a   pure black
+   fg  = #f0f0f0   near white
+   dim = #4a5240   moss shadow
+   acc = #8a9e6e   moss light
+   ───────────────────────────────────────── */
+
+* {
+  border: none;
+  border-radius: 0;
+  font-family: "DM Mono", monospac;
+  font-size: 13px;
+  font-weight: 400;
+  min-height: 0;
+}
+
+window#waybar {
+  background: #0a0a0a;
+  color: #f0f0f0;
+}
+
+/* ── all modules: zero base, uniform padding ── */
+#battery,
+#backlight,
+#bluetooth,
+#clock,
+#cpu,
+#custom-notification,
+#custom-playerctl,
+#custom-power,
+#custom-updates,
+#custom-weather,
+#keyboard-state,
+#language,
+#memory,
+#network,
+#pulseaudio,
+#tags,
+#taskbar,
+#temperature,
+#tray,
+#window,
+#workspaces,
+#cava {
+  background: transparent;
+  color: #8a9e6e;
+  padding: 0 10px;
+}
+
+/* ── workspaces ── */
+#workspaces button {
+  background: transparent;
+  color: #4a5240;
+  padding: 0 6px;
+  border-bottom: 2px solid transparent;
+}
+
+#workspaces button.active {
+  color: #8a9e6e;
+  border-bottom: 2px solid #8a9e6e;
+}
+
+#workspaces button.urgent {
+  color: #f0f0f0;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+#workspaces button:hover {
+  background: transparent;
+  color: #f0f0f0;
+}
+
+/* ── tags (niri / river) ── */
+#tags button {
+  background: transparent;
+  color: #4a5240;
+  padding: 0 5px;
+}
+
+#tags button.occupied {
+  color: #f0f0f0;
+}
+
+#tags button.focused {
+  color: #8a9e6e;
+  border-bottom: 2px solid #8a9e6e;
+}
+
+#tags button.urgent {
+  color: #f0f0f0;
+}
+
+#tags button:hover {
+  color: #f0f0f0;
+}
+
+/* ── separator accent ── */
+#clock {
+  color: #8a9e6e;
+  padding: 0 14px;
+}
+
+/* ── dim secondary modules ── */
+#cpu,
+#temperature,
+#backlight,
+#battery,
+#network,
+#pulseaudio,
+#clock {
+  color: #4a5240;
+}
+
+#network:hover,
+#clock:hover {
+  color: #8a9e6e;
+}
+
+/* ── network ── */
+#network.disconnected {
+  color: #4a5240;
+}
+
+/* ── tray ── */
+#tray > .passive {
+  -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+  -gtk-icon-effect: highlight;
+}
+
+/* ── power ── */
+#custom-power {
+  color: #4a5240;
+  padding-right: 14px;
+}
+
+#custom-power:hover {
+  color: #f0f0f0;
+}
+
+/* ── tooltip ── */
+tooltip {
+  background: #0a0a0a;
+  border: 1px solid #4a5240;
+  color: #f0f0f0;
+}
+
+tooltip label {
+  color: #f0f0f0;
+}
