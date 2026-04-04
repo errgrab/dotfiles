@@ -78,6 +78,11 @@ window#waybar {
   padding: 0 5px;
 }
 
+#tags button:not(.occupied):not(.focused) {
+	margin: -20;
+	color: transparent;
+}
+
 #tags button.occupied {
   color: #f0f0f0;
 }
@@ -109,7 +114,7 @@ window#waybar {
 #network,
 #pulseaudio,
 #clock {
-  color: #4a5240;
+  color: #f0f0f0;
 }
 
 #network:hover,
@@ -133,12 +138,12 @@ window#waybar {
 
 /* ── power ── */
 #custom-power {
-  color: #4a5240;
+  color: #f0f0f0;
   padding-right: 14px;
 }
 
 #custom-power:hover {
-  color: #f0f0f0;
+  color: #8a9e6e;
 }
 
 /* ── tooltip ── */
