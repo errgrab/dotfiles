@@ -13,6 +13,7 @@
         "network",
         "pulseaudio",
         "cpu",
+        "memory",
         "temperature",
         "backlight",
         "clock",
@@ -67,6 +68,10 @@
     "cpu": {
       "interval": 2,
       "format": " {load}%"
+    },
+    "memory": {
+      "interval": 2,
+      "format": "\uefc5 {percentage}%"
     },
     "temperature": {
       "thermal-zone": 2,

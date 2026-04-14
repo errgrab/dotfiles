@@ -9,7 +9,7 @@
 * {
   border: none;
   border-radius: 0;
-  font-family: "DM Mono", monospac;
+  font-family: "CaskaydiaMono NF", monospace;
   font-size: 13px;
   font-weight: 400;
   min-height: 0;
@@ -110,6 +110,7 @@ window#waybar {
 #cpu,
 #temperature,
 #backlight,
+#memory,
 #battery,
 #network,
 #pulseaudio,
