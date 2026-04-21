@@ -3,7 +3,7 @@ input {
         xkb {
             layout "us"
             variant "colemak_dh"
-            options "compose:rctrl,nbsp:level2"
+            options "compose:rctrl"
         }
         numlock
     }
