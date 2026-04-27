@@ -33,7 +33,7 @@
       version-control      t)
 
 ;; Coding style
-(setq-default indent-tabs-mode nil
+(setq-default indent-tabs-mode 't
 	          tab-width 4
 	          c-basic-offset 4
 	          js-indent-level 2
@@ -43,8 +43,10 @@
 
 (add-hook 'c-mode-hook
           (lambda () (c-set-style "k&r") (setq c-basic-offset 4)))
+
 (add-hook 'c++-mode-hook
           (lambda () (c-set-style "k&r") (setq c-basic-offset 4)))
+
 (add-hook 'python-mode-hook
           (lambda () (setq python-indent-offset 4)))
 
@@ -74,9 +76,6 @@
 ;; Modeline more likable
 (use-package doom-modeline
   :init (doom-modeline-mode 1))
-
-(cua-mode 1)
-(setq cua-keep-region-after-copy t)
 
 (use-package multiple-cursors
   :bind (("M-n" . mc/mark-next-like-this)
