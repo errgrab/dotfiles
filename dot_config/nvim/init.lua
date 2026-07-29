@@ -32,11 +32,6 @@ vim.g.maplocalleader = " "
 vim.g.user42 = "ecarvalh"
 vim.g.mail42 = "ecarvalh@student.42porto.com"
 
-vim.keymap.set("n", "<leader>w", "<C-w>", { desc = "Window commands" })
-vim.keymap.set("n", "<leader>t", "<cmd>term<CR>", { desc = "Open terminal" })
-
-vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { desc = "Exit terminal mode" })
-
 vim.api.nvim_create_autocmd("TermOpen", {
 	pattern = "*",
 	callback = function()
@@ -44,6 +39,12 @@ vim.api.nvim_create_autocmd("TermOpen", {
 		vim.opt_local.relativenumber = false
 	end,
 })
+
+-- Lazy
+require("config.lazy")
+
+-- Keybinds
+require("config.keybinds")
 
 -- Old config:
 --vim.cmd [[source $HOME/.config/nvim/old.vim]]
