@@ -1,0 +1,10 @@
+set ts=4 sw=4
+set list lcs=tab:\|\ 
+set nu rnu
+
+" 42 sync clipboard
+autocmd TextYankPost * call system('xsel -ib', getreg('"'))
+
+nnoremap <expr> p '::let @" = system("xsel -ob")<CR>' . v:count1 . 'p'
+nnoremap <expr> P '::let @" = system("xsel -ob")<CR>' . v:count1 . 'P'
+vnoremap <expr> p '::let @" = system("xsel -ob")<CR>' . v:count1 . 'p'
