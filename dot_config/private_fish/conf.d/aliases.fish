@@ -12,11 +12,6 @@ abbr -a lart ls -1Fcart
 abbr -a lrt ls -lARFh
 abbr -a lsr ls -lARFh
 abbr -a lsn ls -1
-
-# file handling
-abbr -a rm rm -i
-abbr -a cp cp -i
-abbr -a mv mv -i
 abbr -a dud du -d 1 -h
 
 # find and grep

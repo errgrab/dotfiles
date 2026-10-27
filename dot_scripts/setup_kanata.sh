@@ -1,7 +1,5 @@
-{{ if .kanata }}
 #!/bin/bash
 # Setup kanata: udev rules, user groups, and binary installation.
-# This runs once via chezmoi (run_once_before_).
 
 set -euo pipefail
 
@@ -96,4 +94,3 @@ echo ""
 echo "==> Kanata setup complete!"
 echo "    If this is the first run, LOG OUT AND BACK IN for group changes to apply,"
 echo "    then run: systemctl --user start kanata.service"
-{{ end }}
