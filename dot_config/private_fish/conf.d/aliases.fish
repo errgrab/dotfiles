@@ -1,4 +1,4 @@
-if status is-interactive
+status is-interactive; or return
 
 # ls commands
 abbr -a l ls -lFh
@@ -6,7 +6,7 @@ abbr -a la ls -lAFh
 abbr -a lr ls -tRFh
 abbr -a lt ls -ltFh
 abbr -a ll ls -l
-abbr -a ldot ls -ld .*
+abbr -a ldot ls -ld ".*" 
 abbr -a lS ls -1FSsh
 abbr -a lart ls -1Fcart
 abbr -a lrt ls -lARFh
@@ -19,6 +19,9 @@ abbr -a ff find . -type f -name
 
 # cat
 abbr -a meow pygmentize
+
+# vi
+abbr -a vi nvim
 
 # git
 
@@ -59,5 +62,3 @@ abbr -a grh git reset --hard
 abbr -a grs git restore --staged
 abbr -a gr git restore
 abbr -a gcp git cherry-pick
-
-end
