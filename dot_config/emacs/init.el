@@ -18,6 +18,10 @@
           ("HACK"  . "#EEEE00")
           ("NOTE"  . "#00CC00"))))
 
+(use-package eat
+  :ensure t
+  :hook (eat-mode . (lambda () (display-line-numbers-mode -1))))
+
 ;; Basics
 (setq custom-file (make-temp-file "emacs-custom-")
       make-backup-files nil
@@ -58,10 +62,10 @@
 (global-display-line-numbers-mode 1)
 
 ;; Windows
-(keymap-global-set "C-S-<up>"    #'windmove-up)
-(keymap-global-set "C-S-<down>"  #'windmove-down)
-(keymap-global-set "C-S-<left>"  #'windmove-left)
-(keymap-global-set "C-S-<right>" #'windmove-right)
+(keymap-global-set "C-c C-<up>"    #'windmove-up)
+(keymap-global-set "C-c C-<down>"  #'windmove-down)
+(keymap-global-set "C-c C-<left>"  #'windmove-left)
+(keymap-global-set "C-c C-<right>" #'windmove-right)
 
 ;; LSP
 (add-hook 'prog-mode-hook #'eglot-ensure)
