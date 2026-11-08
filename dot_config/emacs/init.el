@@ -61,6 +61,16 @@
 (setq display-line-numbers-type 'relative)
 (global-display-line-numbers-mode 1)
 
+;; Save scratch buffer
+(defun my-setup-scratch-buffer ()
+  "Configure the *scratch* buffer to prompt on exit and auto-save."
+  (when (get-buffer "*scratch*")
+	(with-current-buffer "*scratch*"
+	  (setq buffer-offer-save t
+			buffer-auto-save-file-name (expand-file-name "#scratch-backup#" use-emacs-directory))
+	  (auto-save-mode 1))))
+(add-hook 'emacs-startup-hook #'my-setup-scratch-buffer)
+
 ;; Windows
 (keymap-global-set "C-c C-<up>"    #'windmove-up)
 (keymap-global-set "C-c C-<down>"  #'windmove-down)
@@ -108,3 +118,34 @@
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((emacs-lisp . t) (shell . t) (python . t) (C . t))))
+
+;; Markdown
+(use-package markdown-mode
+  :ensure t
+  :mode (("README\\.md\\'" . gfm-mode)
+		 ("\\.md\\'" . markdown-mode)
+		 ("\\.markdown\\'" . markdown-mode))
+  :custom
+  (markdown-command "pandoc")
+  (markdown-hide-markup t)
+  (markdown-hide-urls t)
+  (markdown-fontify-code-blocks-natively t)
+  (markdown-enable-math t)
+  (markdown-header-scaling t)
+  (markdown-header-scaling-values '(2.0 1.75 1.5 1.25 1.1 1.0))
+  (markdown-asymmetric-header t)
+  (markdown-list-indent-width 2)
+  (markdown-indent-on-enter 'indent-and-new-item)
+  :hook
+  ((markdown-mode . visual-line-mode)
+   (markdown-mode . (lambda () (display-line-numbers-mode -1))))
+  :config
+  (markdown-update-header-faces markdown-header-scaling
+								markdown-header-scaling-values)
+  (dolist (face '(markdown-header-face-1
+				  markdown-header-face-2
+				  markdown-header-face-3
+				  markdown-header-face-4
+				  markdown-header-face-5
+				  markdown-header-face-6))
+	(set-face-attribute face nil :weight 'bold)))
