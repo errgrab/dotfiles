@@ -1,23 +1,20 @@
-/* ─────────────────────────────────────────
-   4-TOKEN COLORSCHEME
-   bg  = #0a0a0a   pure black
-   fg  = #f0f0f0   near white
-   dim = #4a5240   moss shadow
-   acc = #8a9e6e   moss light
-   ───────────────────────────────────────── */
+@import "reset.css";
+@define-color bg   #000000;
+@define-color fg   #FFFFFF;
+@define-color acc  #FF2F52;
+@define-color suc  #15803D;
+@define-color err  #DC2626;
+@define-color wrn  #FBBF24;
+@define-color inf  #2563EB;
+@define-color mut  #A3A3A3;
 
 * {
-  border: none;
-  border-radius: 0;
   font-family: "CaskaydiaMono NF", monospace;
-  font-size: 13px;
-  font-weight: 400;
-  min-height: 0;
 }
 
 window#waybar {
-  background: #0a0a0a;
-  color: #f0f0f0;
+  background: @bg;
+  color: @fg;
 }
 
 /* ── all modules: zero base, uniform padding ── */
@@ -44,116 +41,50 @@ window#waybar {
 #workspaces,
 #cava {
   background: transparent;
-  color: #8a9e6e;
-  padding: 0 10px;
+  color: @fg;
+  margin: 0 10px;
 }
 
 /* ── workspaces ── */
 #workspaces button {
   background: transparent;
-  color: #4a5240;
-  padding: 0 6px;
+  color: @fg;
+  padding: 0 8px;
   border-bottom: 2px solid transparent;
 }
 
 #workspaces button.active {
-  color: #8a9e6e;
-  border-bottom: 2px solid #8a9e6e;
+  color: @acc;
+  border-bottom: 2px solid @acc;
 }
 
 #workspaces button.urgent {
-  color: #f0f0f0;
-  border-bottom: 2px solid #f0f0f0;
+  background-color: @wrn;
 }
 
 #workspaces button:hover {
-  background: transparent;
-  color: #f0f0f0;
-}
-
-/* ── tags (niri / river) ── */
-#tags button {
-  background: transparent;
-  color: #4a5240;
-  padding: 0 5px;
-}
-
-#tags button:not(.occupied):not(.focused) {
-	margin: -20;
-	color: transparent;
-}
-
-#tags button.occupied {
-  color: #f0f0f0;
-}
-
-#tags button.focused {
-  color: #8a9e6e;
-  border-bottom: 2px solid #8a9e6e;
-}
-
-#tags button.urgent {
-  color: #f0f0f0;
-}
-
-#tags button:hover {
-  color: #f0f0f0;
+  color: @mut;
+  border-bottom: 2px solid @mut;
 }
 
 /* ── separator accent ── */
 #clock {
-  color: #8a9e6e;
-  padding: 0 14px;
-}
-
-/* ── dim secondary modules ── */
-#cpu,
-#temperature,
-#backlight,
-#memory,
-#battery,
-#network,
-#pulseaudio,
-#clock {
-  color: #f0f0f0;
+  color: @fg;
 }
 
 #network:hover,
 #clock:hover {
-  color: #8a9e6e;
+  color: @mut;
 }
 
-/* ── network ── */
+#battery.warning {
+  color: @wrn;
+}
+
+#battery.critical {
+  color: @err;
+}
+
 #network.disconnected {
-  color: #4a5240;
-}
-
-/* ── tray ── */
-#tray > .passive {
-  -gtk-icon-effect: dim;
-}
-
-#tray > .needs-attention {
-  -gtk-icon-effect: highlight;
-}
-
-/* ── power ── */
-#custom-power {
-  color: #f0f0f0;
-  padding-right: 14px;
-}
-
-#custom-power:hover {
-  color: #8a9e6e;
-}
-
-/* ── tooltip ── */
-tooltip {
-  background: #0a0a0a;
-  border: 1px solid #4a5240;
-  color: #f0f0f0;
-}
-
-tooltip label {
-  color: #f0f0f0;
+  color: @err;
 }
