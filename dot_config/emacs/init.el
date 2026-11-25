@@ -32,14 +32,13 @@
 
 (add-hook 'text-mode-hook #'visual-line-mode)
 
-
 (add-hook 'emacs-startup-hook
           (lambda ()
             (with-current-buffer "*scratch*"
-              (setq buffer-offer-save t
-                    buffer-auto-save-file-name
-                    (expand-file-name "#scratch-backup#" user-emacs-directory))
-              (auto-save-mode 1))))
+              (setq buffer-offer-save t)
+              (auto-save-mode 1)
+              (setq buffer-auto-save-file-name
+                    (expand-file-name "#scratch-backup#" user-emacs-directory)))))
 
 ;;; UI
 (load-theme 'modus-vivendi t)
@@ -156,6 +155,16 @@
                (org-level-3 . 1.5) (org-level-4 . 1.25)))
     (set-face-attribute (car f) nil :height (cdr f) :weight 'bold)))
 
+(use-package org-appear
+  :ensure t
+  :hook (org-mode . org-appear-mode)
+  :custom
+  (org-appear-autoemphasis t)
+  (org-appear-autolinks t)
+  (org-appear-autosubmarkers t)
+  (org-appear-autoentities t)
+  (org-appear-autokeywords t))
+
 (use-package markdown-mode
   :custom
   (markdown-command "pandoc")
@@ -168,3 +177,34 @@
   (markdown-asymmetric-header t)
   (markdown-list-indent-width 2)
   (markdown-indent-on-enter 'indent-and-new-item))
+
+(defvar my/current-line '(0 . 0)
+  "(start . end) of current line in current buffer")
+(make-variable-buffer-local 'my/current-line)
+
+(defun my/unhide-current-line (limit)
+  "Font-lock function"
+  (let ((start (max (point) (car my/current-line)))
+        (end (min limit (cdr my/current-line))))
+    (when (< start end)
+      (remove-text-properties start end 
+                      '(invisible t display "" composition ""))
+      (goto-char limit)
+      t)))
+
+(defun my/refontify-on-linemove ()
+  "Post-command-hook"
+  (let* ((start (line-beginning-position))
+         (end (line-beginning-position 2))
+         (needs-update (not (equal start (car my/current-line)))))
+    (setq my/current-line (cons start end))
+    (when needs-update
+      (font-lock-fontify-block 3))))
+
+(defun my/markdown-unhighlight ()
+  "Install"
+  (markdown-toggle-markup-hiding 1)
+  (font-lock-add-keywords nil '((my/unhide-current-line)) t)
+  (add-hook 'post-command-hook #'my/refontify-on-linemove nil t))
+
+(add-hook 'markdown-mode-hook #'my/markdown-unhighlight)
